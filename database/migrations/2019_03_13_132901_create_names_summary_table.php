@@ -16,7 +16,7 @@ class CreateNamesSummaryTable extends Migration
         Schema::create('names_summary', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('amount');
+            $table->integer('amount')->index();
             $table->timestamps();
         });
     }

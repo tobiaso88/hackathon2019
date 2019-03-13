@@ -15,11 +15,11 @@ class CreateNamesByStateTable extends Migration
     {
         Schema::create('names_by_state', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('gender');
-            $table->integer('year');
-            $table->integer('amount');
-            $table->string('state');
+            $table->string('name')->index();
+            $table->string('gender')->index();
+            $table->integer('year')->index();
+            $table->integer('amount')->index();
+            $table->string('state')->index();
             $table->timestamps();
         });
     }

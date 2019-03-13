@@ -15,10 +15,10 @@ class CreateNamesTable extends Migration
     {
         Schema::create('names', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('gender');
-            $table->integer('year');
-            $table->integer('amount');
+            $table->string('name')->index();
+            $table->string('gender')->index();
+            $table->integer('year')->index();
+            $table->integer('amount')->index();
             $table->timestamps();
         });
     }
