@@ -19,7 +19,6 @@ class CreateNamesTable extends Migration
             $table->string('gender');
             $table->integer('year');
             $table->integer('amount');
-            $table->string('state');
             $table->timestamps();
         });
     }

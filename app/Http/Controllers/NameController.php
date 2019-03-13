@@ -15,7 +15,7 @@ class NameController extends Controller
      */
     public function index(Request $request)
     {
-        return NameResource::collection(
+        /*return NameResource::collection(
             Name::when($request->has('filter'), function($query) use ($request) {
                     collect($request->input('filter'))
                         ->each(function($value, $column) use ($query) {
@@ -24,6 +24,15 @@ class NameController extends Controller
                 })
                 ->with('stateRelation')
                 ->paginate($request->input('limit', 25))
-        );
+        );*/
+
+        $names = Name::when($request->has('name'), function($query) use ($request) {
+                return $query->where('name', 'LIKE', $request->input('name'));
+            })
+            ->with('stateRelation')
+            ->orderByDesc('amount')
+            ->paginate($request->input('limit', 10));
+
+        return view('name');
     }
 }

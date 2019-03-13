@@ -12,6 +12,8 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('top100', 'HomeController@top100');
+Route::get('most-given-name', 'HomeController@mostGivenName');
 
 Route::resource('name', 'NameController')->only(['index']);
 Route::resource('state', 'StateController')->only('index', 'show');
