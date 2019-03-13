@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('name', 'NameController');
+Route::resource('name', 'NameController')->only(['index']);
