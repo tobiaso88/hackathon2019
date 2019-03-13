@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Route::resource('name', 'NameController')->only(['index']);
 Route::resource('state', 'StateController')->only('index', 'show');
