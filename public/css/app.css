@@ -10719,11 +10719,27 @@ body {
   padding: 2rem;
 }
 
+.heading h2 {
+  font-size: 20px;
+}
+
 .heading * {
   text-align: center;
 }
 
 .pagination {
   flex-wrap: wrap;
+}
+
+.navbar {
+  margin: 1em 0;
+  background: #ed7e23;
+}
+
+#replace-title {
+  transition: all 0.5s;
+  color: #ed7e23;
+  display: block;
+  font-size: 28px;
 }
 

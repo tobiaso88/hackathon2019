@@ -48997,9 +48997,23 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
-  el: '#app'
-});
+var titles = ['smart', 'flexible', 'beautiful', '"fast"'];
+var replaceTitle = $('#replace-title');
+setInterval(function () {
+  var current = replaceTitle.html();
+  var index = titles.indexOf(current);
+  var nextIndex = index + 1;
+
+  if (index == 3) {
+    nextIndex = 0;
+  }
+
+  replaceTitle.css('opacity', 0);
+  setTimeout(function () {
+    replaceTitle.html(titles[nextIndex]);
+    replaceTitle.css('opacity', 100);
+  }, 500);
+}, 2000);
 
 /***/ }),
 

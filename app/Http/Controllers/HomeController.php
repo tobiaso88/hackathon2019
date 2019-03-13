@@ -24,7 +24,6 @@ class HomeController extends Controller
             ->sum('amount');
 
         $select = ['*'];
-        $orderBy = 'amount';
         $table = 'names_summary';
 
         if ($request->anyFilled('filter.year')) {
@@ -35,9 +34,9 @@ class HomeController extends Controller
         }
         if ($request->anyFilled('filter.state')) {
             $table = 'names_by_state';
-            if (!$request->anyFilled('filter.year')) {
+            // if (!$request->anyFilled('filter.year')) {
                 $select[] = DB::raw('SUM(amount) AS amount');
-            }
+            // }
         }
 
         $names = DB::table($table)
@@ -60,16 +59,13 @@ class HomeController extends Controller
                 return $query->where('year', $request->input('filter.year'));
             })
             ->groupBy('name')
-            ->orderByDesc($orderBy)
+            ->orderByDesc('amount')
             ->select($select)
-            ->when(true, function($query) {
-                /*dd($query->toSql());*/
-            })
-            ->paginate($request->input('limit', 10));
+            ->paginate($request->input('limit', 10), ['*'], 'page');
 
+        $compareNames = [];
         if ($request->input('compare_on', 0) == 1) {
             $select = ['*'];
-            $orderBy = 'amount';
             $table = 'names_summary';
 
             if ($request->anyFilled('compare.year')) {
@@ -96,8 +92,9 @@ class HomeController extends Controller
                     return $query->where('year', $request->input('compare.year'));
                 })
                 ->groupBy('name')
-                ->orderByDesc($orderBy)
-                ->paginate($request->input('limit', 10), $select, 'cpage');
+                ->orderByDesc('amount')
+                ->select($select)
+                ->paginate($request->input('limit', 10), ['*'], 'cpage');
         }
 
         return view('welcome')->with([

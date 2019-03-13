@@ -10,8 +10,9 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($names as $name)
+        @foreach ($names as $i => $name)
         <tr>
+            <td>#{{ $i+1 }}</td>
             <td>{{ $name->name }}</td>
             <td>{{ $name->total }}</td>
         </tr>

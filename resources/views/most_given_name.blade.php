@@ -1,5 +1,6 @@
 @extends('layout')
 
 @section('content')
-<h1>{{ $data->name }} ({{ $data->total }})</h1>
+<h1>Most given name</h1>
+<h2>{{ $data->name }} ({{ number_format($data->total, 0, '.', ' ') }})</h2>
 @stop
