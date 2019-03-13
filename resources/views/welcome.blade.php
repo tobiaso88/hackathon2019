@@ -42,7 +42,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" id="compare-form"  style="{{ request()->input('compare_on', 0) == 1 ? '':'display: none;'}}">
                 <div class="form-group">
                     <label>Namn</label>
                     <input type="text" name="compare[name]" value="{{ request()->input('compare.name', '') }}" class="form-control">

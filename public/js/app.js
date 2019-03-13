@@ -49014,6 +49014,16 @@ setInterval(function () {
     replaceTitle.css('opacity', 100);
   }, 500);
 }, 2000);
+var $compareForm = $('#compare-form');
+$('input[name="compare_on"]').on('change', function () {
+  var $this = $(this);
+
+  if ($this.is(':checked')) {
+    $compareForm.show();
+  } else {
+    $compareForm.hide();
+  }
+});
 
 /***/ }),
 
