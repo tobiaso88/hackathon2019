@@ -4,6 +4,16 @@
 <section class="search">
     <form action="" method="get">
         <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Jämför</label>
+                    <input type="hidden" name="compare_on" value="0">
+                    <input type="checkbox" name="compare_on" value="1" class="form-control" {{ request()->input('compare_on', 0) == 1 ? 'checked':''}}>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Namn</label>
@@ -33,11 +43,6 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <label>Jämför</label>
-                    <input type="hidden" name="compare_on" value="0">
-                    <input type="checkbox" name="compare_on" value="1" class="form-control" {{ request()->input('compare_on', 0) == 1 ? 'checked':''}}>
-                </div>
                 <div class="form-group">
                     <label>Namn</label>
                     <input type="text" name="compare[name]" value="{{ request()->input('compare.name', '') }}" class="form-control">
@@ -80,6 +85,11 @@
     @endif
 </section>
 
+@if (request()->input('compare_on', 0) == 1)
+<div class="row">
+    <div class="col-md-6">
+@endif
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -96,5 +106,33 @@
         @endforeach
     </tbody>
 </table>
-{{ $names->appends(request()->input())->links() }}
+{{ $names->appends(request()->input())->onEachSide(1)->links() }}
+
+@if (request()->input('compare_on', 0) == 1)
+</div>
+<div class="col-md-6">
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Namn</td>
+            <td>Antal</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($compareNames as $name)
+        <tr>
+            <td>{{ $name->name }}</td>
+            <td>{{ $name->amount }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+{{ $compareNames->appends(request()->input())->onEachSide(1)->links() }}
+
+</div>
+</div>
+@endif
+
+</div></div>
 @stop

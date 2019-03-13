@@ -65,10 +65,44 @@ class HomeController extends Controller
             ->when(true, function($query) {
                 /*dd($query->toSql());*/
             })
-            ->paginate($request->input('limit', 200));
+            ->paginate($request->input('limit', 10));
+
+        if ($request->input('compare_on', 0) == 1) {
+            $select = ['*'];
+            $orderBy = 'amount';
+            $table = 'names_summary';
+
+            if ($request->anyFilled('compare.year')) {
+                $table = 'names';
+                if (!$request->anyFilled('compare.year')) {
+                    $select[] = DB::raw('SUM(amount) AS amount');
+                }
+            }
+            if ($request->anyFilled('compare.state')) {
+                $table = 'names_by_state';
+                if (!$request->anyFilled('compare.year')) {
+                    $select[] = DB::raw('SUM(amount) AS amount');
+                }
+            }
+
+            $compareNames = DB::table($table)
+                ->when($request->anyFilled('compare.name'), function($query) use ($request) {
+                    return $query->where('name', $request->input('compare.name'));
+                })
+                ->when($request->anyFilled('compare.state'), function($query) use ($request) {
+                    return $query->where('state', $request->input('compare.state'));
+                })
+                ->when($request->anyFilled('compare.year'), function($query) use ($request) {
+                    return $query->where('year', $request->input('compare.year'));
+                })
+                ->groupBy('name')
+                ->orderByDesc($orderBy)
+                ->paginate($request->input('limit', 10), $select, 'cpage');
+        }
 
         return view('welcome')->with([
             'names' => $names,
+            'compareNames' => $compareNames,
             'states' => State::all(),
             'amountTotal' => $amountTotal,
         ]);

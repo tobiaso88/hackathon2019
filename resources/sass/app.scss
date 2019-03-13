@@ -80,27 +80,12 @@ html, body {
     padding: 2rem;
 }
 
-.flex-row {
-    display: flex;
-    &.space-between {
-        justify-content: space-between;
-    }
-}
-
 .heading {
     * {
         text-align: center;
     }
 }
 
-.answers {
-    margin: 0 5%;
-    padding: 2rem;
-    background-color: #fff;
-    border: 1px solid lighten(black, 20%);
-    border-radius: 5px;
+.pagination {
+    flex-wrap: wrap;
 }
-
-
-
-
