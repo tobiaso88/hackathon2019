@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::resource('name', 'NameController')->only(['index']);
+Route::resource('state', 'StateController')->only('index', 'show');
