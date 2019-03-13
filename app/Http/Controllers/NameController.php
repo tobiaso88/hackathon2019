@@ -12,9 +12,15 @@ class NameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Name::paginate();
+        return Name::when($request->has('filter'), function($query) use ($request) {
+                collect($request->input('filter'))
+                    ->each(function($value, $column) use ($query) {
+                        $query->where($column, 'LIKE', $value);
+                    });
+            })
+            ->paginate();
     }
 
     /**
